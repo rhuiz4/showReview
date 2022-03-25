@@ -31,12 +31,12 @@ An Example User:
 }
 ```
 
-An Example Movie:
+An Example Show:
 
 ```javascript
 {
   name: "The Batman",
-  year: 2022,
+  year: 2022, // Either just the year or the date it came out
   reviews: // array of references to comments
 }
 ```
@@ -84,8 +84,6 @@ An Example Review:
 Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia/commons/2/20/Sitemap_google.jpg), but you can create one without the screenshots, drop shadows, etc. ... just names of pages and where they flow to.
 
 ## User Stories or Use Cases
-
-(__TODO__: write out how your application will be used through [user stories](http://en.wikipedia.org/wiki/User_story#Format) and / or [use cases](https://www.mongodb.com/download-center?jmp=docs&_ga=1.47552679.1838903181.1489282706#previous)_)
 
 1. as non-registered user, I can register a new account with the site
 2. as a user, I can log in to the site

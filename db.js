@@ -4,24 +4,30 @@ const mongoose = require('mongoose'),
 
 
 const User = new mongoose.Schema({
-  // username, password
-  lists:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'List' }]
+	// username, password
+	shows:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Show' }],
+	notes: [Note],
+	reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
 });
 
-const Item = new mongoose.Schema({
-	name: {type: String, required: true},
-	quantity: {type: Number, min: 1, required: true},
-	checked: {type: Boolean, default: false, required: true}
-}, {
-	_id: true
+const Note = new mongoose.Schema({
+	show: {type: String, required: true},
+	watched: {type: Boolean, default: false, required: true},
+	comment: {type:String, required: false}
 });
 
+const Show = new mongoose.Schema({
+  	name: {type: String, required: true},
+	year: {type: Number, required: true},
+	reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
+});
 
-const List = new mongoose.Schema({
-  user: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
-  name: {type: String, required: true},
-	createdAt: {type: Date, required: true},
-	items: [Item]
+const Review = new mongoose.Schema({
+	user: {type: String, required: true},
+	show: {type: String, required: true},
+	created: {type: Date, required: true},
+	rating: {type: Number, required: true},
+	comment: {type: String, required: false}
 });
 
 
@@ -29,6 +35,7 @@ User.plugin(passportLocalMongoose);
 List.plugin(URLSlugs('name'));
 
 mongoose.model('User', User);
-mongoose.model('List', List);
-mongoose.model('Item', Item);
-mongoose.connect('mongodb://localhost/grocerydb');
+mongoose.model('Note', Note);
+mongoose.model('Show', Show);
+mongoose.model('Review', Review);
+mongoose.connect('mongodb://localhost/showdb');
