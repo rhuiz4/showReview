@@ -94,21 +94,24 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 ## Research Topics
 
-(__TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed_)
+* (3 point) Unit testing
+    * Probably going to use Jasmine or Mocha, will have to see which one I like better
 
-* (5 points) Integrate user authentication
-    * I'm going to be using passport for user authentication
-    * And account has been made for testing; I'll email you the password
-    * see <code>cs.nyu.edu/~jversoza/ait-final/register</code> for register page
-    * see <code>cs.nyu.edu/~jversoza/ait-final/login</code> for login page
-* (4 points) Perform client side form validation using a JavaScript library
-    * see <code>cs.nyu.edu/~jversoza/ait-final/my-form</code>
-    * if you put in a number that's greater than 5, an error message will appear in the dom
-* (5 points) vue.js
-    * used vue.js as the frontend framework; it's a challenging library to learn, so I've assigned it 5 points
+* (2 points) Use some sort of linter
+    * Probably ESLint
 
-10 points total out of 8 required points (___TODO__: addtional points will __not__ count for extra credit_)
+* (2 points) Use a CSS framework or a CSS preprocessor, haven't decided
+    * Framework: either tailwind.css or Bootstrap.
+    * Preprocessor: Sass.
 
+* (3 points) Use grunt
+    * automate linting
+    * automate Sass (if I decide to use it)
+
+* (4 points) Planning to use react.js for frontend
+    * Probably not as difficult as vue, but will still be a major portion of the project.
+
+Possible 14 points total out of 8 required points 
 
 ## [Link to Initial Main Project File](app.js) 
 
@@ -116,8 +119,5 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 ## Annotations / References Used
 
-(__TODO__: list any tutorials/references/etc. that you've based your code off of_)
-
-1. [passport.js authentication docs](http://passportjs.org/docs) - (add link to source code that was based on this)
-2. [tutorial on vue.js](https://vuejs.org/v2/guide/) - (add link to source code that was based on this)
+None so far.
 
