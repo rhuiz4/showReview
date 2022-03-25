@@ -1,50 +1,55 @@
-The content below is an example project proposal / requirements document. Replace the text below the lines marked "__TODO__" with details specific to your project. Remove the "TODO" lines.
-
-(__TODO__: your project name_)
-
-# Shoppy Shoperson 
+# Show U Review
 
 ## Overview
 
-(__TODO__: a brief one or two paragraph, high-level description of your project_)
+Everyone seeks entertainment from time to time. You have probably seen and loved many movies, TV series, or performances (i.e. Broadway shows), and want to talk about and share your experiences watching them. Maybe you want a way to keep track of all the shows you've watched and remember what you thought about them. Or perhaps you are deciding on what to watch next, and want to see what other people are saying about a show. 
 
-Remembering what to buy at the grocery store is waaaaay too difficult. Also, shopping for groceries when you're hungry leads to regrettable purchases. Sooo... that's where Shoppy Shoperson comes in!
-
-Shoppy Shoperson is a web app that will allow users to keep track of multiple grocery lists. Users can register and login. Once they're logged in, they can create or view their grocery list. For every list that they have, they can add items to the list or cross off items.
-
+Show U Review is a web app that lets users write and share their own thoughts and experiences about a show. Users can register and login, can search for shows, and can look at other peoples' reviews for the show. Users can also write their own comments and reviews for a show, mark which shows they have watched, and can add new shows to talk about. 
 
 ## Data Model
 
-(__TODO__: a description of your application's data and their relationships to each other_) 
+The application will store Users, Shows, and Reviews
 
-The application will store Users, Lists and Items
+* users can have multiple shows watched/saved (referencing)
+* users can have multiple notes for shows (embedding)
+* users can have public reviews for shows (referencing)
+* shows can have multiple reviews from different users (referencing)
 
-* users can have multiple lists (via references)
-* each list can have multiple items (by embedding)
-
-(__TODO__: sample documents_)
 
 An Example User:
 
 ```javascript
 {
-  username: "shannonshopper",
+  username: "some guy",
   hash: // a password hash,
-  lists: // an array of references to List documents
+  shows: // array of references to Shows
+  notes: [
+    { show: "The Batman", watched: True, comment: "This is better than I thought!"},
+    { show: "Hamilton", watched: True, comment: "I don't usually watch musicals, but the songs are so catchy!"}
+  ]
+  reviews: // array of references to Reviews
 }
 ```
 
-An Example List with Embedded Items:
+An Example Movie:
 
 ```javascript
 {
-  user: // a reference to a User object
-  name: "Breakfast foods",
-  items: [
-    { name: "pancakes", quantity: "9876", checked: false},
-    { name: "ramen", quantity: "2", checked: true},
-  ],
-  createdAt: // timestamp
+  name: "The Batman",
+  year: 2022,
+  reviews: // array of references to comments
+}
+```
+
+An Example Review:
+
+```javascript
+{
+  user: "some guy",
+  show: "The Batman",
+  created: // timestamp,
+  rating: 8,
+  comment: "This is a decent reboot. Will recommend if you are a fan of the franchise."
 }
 ```
 
@@ -57,17 +62,20 @@ An Example List with Embedded Items:
 
 (__TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc._)
 
-/list/create - page for creating a new shopping list
+/login - page to log in
+![login](documentation/login.png)
 
-![list create](documentation/list-create.png)
+/register - page to create account
+![register](documentation/register.png)
 
-/list - page for showing all shopping lists
+/shows - page to show all saved shows and notes
+![shows](documentation/shows.png)
 
-![list](documentation/list.png)
+/shows/search - page to look up shows
+![lookup](documentation/lookup.png)
 
-/list/slug - page for showing specific shopping list
-
-![list](documentation/list-slug.png)
+/shows/details - page with information regarding a show
+![details](documentaion/details.png)
 
 ## Site map
 
@@ -81,10 +89,10 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 1. as non-registered user, I can register a new account with the site
 2. as a user, I can log in to the site
-3. as a user, I can create a new grocery list
-4. as a user, I can view all of the grocery lists I've created in a single list
-5. as a user, I can add items to an existing grocery list
-6. as a user, I can cross off items in an existing grocery list
+3. as a user, I can search for shows
+4. as a user, I can save a show to my list
+5. as a user, I can add personal notes to a show
+6. as a user, I can write a review for a show
 
 ## Research Topics
 
