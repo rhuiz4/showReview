@@ -56,11 +56,7 @@ An Example Review:
 
 ## [Link to Commented First Draft Schema](db.js) 
 
-(__TODO__: create a first draft of your Schemas in db.js and link to it_)
-
 ## Wireframes
-
-(__TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc._)
 
 /login - page to log in
 ![login](documentation/login.png)
@@ -74,14 +70,11 @@ An Example Review:
 /shows/search - page to look up shows
 ![lookup](documentation/lookup.png)
 
-/shows/details - page with information regarding a show
-![details](documentaion/details.png)
+/shows/search - page to dispay show details
+![details](documentation/details.png)
 
 ## Site map
-
-(__TODO__: draw out a site map that shows how pages are related to each other_)
-
-Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia/commons/2/20/Sitemap_google.jpg), but you can create one without the screenshots, drop shadows, etc. ... just names of pages and where they flow to.
+![sitemap](documentation/sitemap.png)
 
 ## User Stories or Use Cases
 
@@ -114,8 +107,6 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 Possible 14 points total out of 8 required points 
 
 ## [Link to Initial Main Project File](app.js) 
-
-(__TODO__: create a skeleton Express application with a package.json, app.js, views folder, etc. ... and link to your initial app.js_)
 
 ## Annotations / References Used
 

@@ -1,10 +1,10 @@
-const mongoose = require('mongoose'),
-	URLSlugs = require('mongoose-url-slugs'),
-  passportLocalMongoose = require('passport-local-mongoose');
+const mongoose = require('mongoose');
+// 	URLSlugs = require('mongoose-url-slugs'),
+//   passportLocalMongoose = require('passport-local-mongoose');
 
 
 const User = new mongoose.Schema({
-	// username, password
+	// username, password	
 	shows:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Show' }],
 	notes: [Note],
 	reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
@@ -31,8 +31,8 @@ const Review = new mongoose.Schema({
 });
 
 
-User.plugin(passportLocalMongoose);
-List.plugin(URLSlugs('name'));
+// User.plugin(passportLocalMongoose);
+// List.plugin(URLSlugs('name'));
 
 mongoose.model('User', User);
 mongoose.model('Note', Note);
