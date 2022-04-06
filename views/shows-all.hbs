@@ -1,0 +1,27 @@
+
+Saved Shows:
+<br><br>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Release Date</th>
+        <th>Reviews</th>
+    </tr>
+{{#each shows}}
+<tr>
+    <td>{{this.name}}</td>
+    <td>{{this.year}}</td>
+    <td><ul>
+        {{#each this.reviews}}
+        <li>{{this}}</li>
+        {{/each}}
+    </ul></td>
+    <td> 
+        <a href="/shows/delete/{{this.id}}">Delete</a>
+    </td>
+</tr>
+{{/each}}
+</table>
+<br><br>
+<a href="/shows/edit">Edit a Show</a><br>
+<a href="/shows/search">Search for a Show</a>

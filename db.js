@@ -2,24 +2,25 @@ const mongoose = require('mongoose');
 // 	URLSlugs = require('mongoose-url-slugs'),
 //   passportLocalMongoose = require('passport-local-mongoose');
 
-
-const User = new mongoose.Schema({
-	// username, password	
-	shows:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Show' }],
-	notes: [Note],
-	reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
-});
-
 const Note = new mongoose.Schema({
 	show: {type: String, required: true},
 	watched: {type: Boolean, default: false, required: true},
 	comment: {type:String, required: false}
 });
 
+const User = new mongoose.Schema({
+	username: {type: String, required: true},
+	password: {type: String, required: true},
+	shows:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Show' }],
+	notes: [Note],
+	reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
+});
+
 const Show = new mongoose.Schema({
   	name: {type: String, required: true},
 	year: {type: Number, required: true},
-	reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
+	// reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
+	reviews: [{type: String, required: false}]
 });
 
 const Review = new mongoose.Schema({

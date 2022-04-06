@@ -1,0 +1,17 @@
+<h2>Search Show</h2>
+<form action="" method="POST">
+<div class='form-row'><label>Name:</label> <input type="text" name="name"></div>
+<div class='form-row'><input type="submit" value="Search Show"></div>
+</form>
+<br><br>
+{{option}}
+<br><br>
+<table>
+{{#each shows}}
+<tr>
+  <td>{{this.name}}</td>
+  <td>{{this.year}}</td>
+  <td><a href="/shows/add-show">Add</a></td>
+</tr>
+{{/each}}
+</table>

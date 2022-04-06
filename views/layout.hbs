@@ -11,17 +11,17 @@
 <div>Logged in as: {{user.username}} (<a href="/logout">Logout</a>)
 </div> 
 {{/if}}
-	<h1>Shoppy Shoperson</h1>
-</div>
-<div id="bd">
-{{{body}}}
+	<h1>It's Showtime!</h1>
 </div>
 <div id="ft">
-{{#if user}}
+{{!-- {{#if user}} --}}
 	<a href="/">Home</a> | 
-	<a href="/list/">All Lists</a> | 
-	<a href="/list/create">Create a New List</a>
-{{/if}}
+	<a href="/shows/">Your Shows</a> | 
+	<a href="/shows/create">Create a Show</a>
+{{!-- {{/if}} --}}
+</div><br><br>
+<div id="bd">
+{{{body}}}
 </div>
 </div>
 </body>
