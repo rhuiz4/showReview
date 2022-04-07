@@ -3,7 +3,6 @@ const express = require('express'),
 	mongoose = require('mongoose'),
 	Shows = mongoose.model('Show');
 
-
 router.get('/', (req, res) => {
     Shows.find({}, (err, shows, count) => {
         res.render('shows-all', {shows:shows});
@@ -17,7 +16,7 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-    var show = new Shows({
+    const show = new Shows({
         name: req.body.name,
         year: req.body.year,
         reviews: []
@@ -49,7 +48,7 @@ router.get('/edit', (req, res) => {
 
 router.post('/edit', (req, res) => {
     Shows.updateOne({name: req.body.name}, {$set: {year: req.body.year}}, (err, show) => {
-        if (req.body.reviews != '') {
+        if (req.body.reviews !== '') {
             Shows.updateOne({name: req.body.name}, {$push: {reviews: req.body.review}}, (err, show) => {
                 res.redirect('/shows');
             });

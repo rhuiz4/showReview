@@ -1,13 +1,10 @@
 const express = require('express'), 
-    router = express.Router(),
-    mongoose = require('mongoose'),
-    User = mongoose.model('User');
+    router = express.Router();
+    // mongoose = require('mongoose'),
+    // User = mongoose.model('User');
 
-
-router.get('/', (req, res) =>  {
-
+router.get('/', (req, res) => {
   res.render('home');
-
 });
 
 // router.get('/logout', (req, res) => {
