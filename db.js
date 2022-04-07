@@ -48,4 +48,4 @@ mongoose.model('User', User);
 mongoose.model('Note', Note);
 mongoose.model('Show', Show);
 mongoose.model('Review', Review);
-mongoose.connect(MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI);
