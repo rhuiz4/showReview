@@ -87,8 +87,7 @@ An Example Review:
 
 ## Research Topics
 
-* (3 point) Unit testing
-    * Probably going to use Jasmine or Mocha, will have to see which one I like better
+* (2 point) Deploy to Heroku
 
 * (2 points) Use some sort of linter
     * Probably ESLint
@@ -104,7 +103,7 @@ An Example Review:
 * (4 points) Planning to use react.js for frontend
     * Probably not as difficult as vue, but will still be a major portion of the project.
 
-Possible 14 points total out of 8 required points 
+Possible 13 points total out of 8 required points 
 
 ## [Link to Initial Main Project File](app.js) 
 
