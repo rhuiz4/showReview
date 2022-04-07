@@ -87,7 +87,9 @@ An Example Review:
 
 ## Research Topics
 
-* (2 point) Deploy to Heroku
+* (3 point) Deploy to Heroku
+
+* (1 point) Use MongoDB Atlas to host database
 
 * (2 points) Use some sort of linter
     * Probably ESLint
@@ -109,5 +111,7 @@ Possible 13 points total out of 8 required points
 
 ## Annotations / References Used
 
-None so far.
+Research on deploying on heroku:
+https://devcenter.heroku.com/articles/deploying-nodejs
 
+Research on using MongoDB Atlas with Heroku: https://www.mongodb.com/developer/how-to/use-atlas-on-heroku/

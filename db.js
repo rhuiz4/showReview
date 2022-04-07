@@ -2,15 +2,6 @@ const mongoose = require('mongoose');
 // 	URLSlugs = require('mongoose-url-slugs'),
 //   passportLocalMongoose = require('passport-local-mongoose');
 
-// const { MongoClient, ServerApiVersion } = require('mongodb');
-// const uri = "mongodb+srv://Ri:bIVMmhsuXRCIt8MT@cluster0.yq9rc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-// client.connect(err => {
-//     const collection = client.db("test").collection("devices");
-//     // perform actions on the collection object
-//     client.close();
-// });
-
 const Note = new mongoose.Schema({
 	show: {type: String, required: true},
 	watched: {type: Boolean, default: false, required: true},
