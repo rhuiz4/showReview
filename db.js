@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 // 	URLSlugs = require('mongoose-url-slugs'),
-//   passportLocalMongoose = require('passport-local-mongoose');
+	  passportLocalMongoose = require('passport-local-mongoose');
 
 const Note = new mongoose.Schema({
 	show: {type: String, required: true},
@@ -9,8 +9,8 @@ const Note = new mongoose.Schema({
 });
 
 const User = new mongoose.Schema({
-	username: {type: String, required: true},
-	password: {type: String, required: true},
+	// username: {type: String, required: true},
+	// password: {type: String, required: true},
 	shows:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Show' }],
 	notes: [Note],
 	reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
@@ -32,7 +32,7 @@ const Review = new mongoose.Schema({
 });
 
 
-// User.plugin(passportLocalMongoose);
+User.plugin(passportLocalMongoose);
 // List.plugin(URLSlugs('name'));
 
 mongoose.model('User', User);
