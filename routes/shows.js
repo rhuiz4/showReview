@@ -1,11 +1,41 @@
 const express = require('express'),
-	router = express.Router(),
-	mongoose = require('mongoose'),
-	Shows = mongoose.model('Show');
+    router = express.Router(),
+    mongoose = require('mongoose'),
+    Shows = mongoose.model('Show'),
+    Reviews = mongoose.model('Review'),
+    Users = mongoose.model('User');
+
+const isAuthenticated = (req, res, next) => {
+    if(!req.user) {
+        res.redirect('/'); 
+        console.log('redirecting');
+    } else {
+        next();
+    }
+}
+    
+router.use(isAuthenticated)
 
 router.get('/', (req, res) => {
-    Shows.find({}, (err, shows, count) => {
-        res.render('shows-all', {shows:shows});
+    
+    // Finds current user
+    Users.findOne({_id: req.user.id}, (err, user) => {
+
+        // Find all shows that the user has in their shows array
+        Shows.find({_id: {$in: user.shows}}, (err, shows) => {
+            res.render('shows-all', {shows: shows});
+        });
+    });
+});
+
+// Shows show details
+router.get('/details/:id', (req, res) => {
+    // Find show given id
+    Shows.findOne({_id: req.params.id}, (err, show) => {
+        // Find all reviews for show
+        Reviews.find({show: show._id}, (err, reviews) => {
+            res.render('shows-details', {show: show, reviews: reviews});
+        });
     });
 });
 
@@ -40,34 +70,76 @@ router.post('/search', (req, res) => {
     });
 });
 
-// Allows users to add a show
-// For now you can only change year and add reviews
+
+// Displays page to edit shows
 router.get('/edit', (req, res) => {
-    res.render('shows-edit');
+    // Shows all shows
+    Shows.find({}, (err, shows, count) => {
+        res.render('shows-edit', {shows:shows});
+    });
 });
 
-router.post('/edit', (req, res) => {
-    Shows.updateOne({name: req.body.name}, {$set: {year: req.body.year}}, (err, show) => {
-        if (req.body.reviews !== '') {
-            Shows.updateOne({name: req.body.name}, {$push: {reviews: req.body.review}}, (err, show) => {
-                res.redirect('/shows');
-            });
-        } else {
-            res.redirect('/shows');
-        }
+// Shows details for a show and allows users to edit the show
+router.get('/edit-show/:id', (req, res) => {
+    Shows.findOne({_id: req.params.id}, (err, show) => {
+        Reviews.find({show: show._id}, (err, reviews) => {
+            res.render('shows-edit-show', {show: show, reviews: reviews});
+        });
+    });
+});
+
+// Updates the show with the new information
+router.post('/edit-show/:id', (req, res) => {
+    // Updates show with new information
+    Shows.findOneAndUpdate({_id: req.params.id}, {
+        name: req.body.name,
+        year: req.body.year
+    }, (err, show) => {
+        res.redirect('/shows/edit');
     });
 });
 
 // Deletes a show from the database
 router.get('/delete/:id', (req, res) => {
     Shows.deleteOne({_id: req.params.id}, (err, show) => {
+        res.redirect('/shows/edit');
+    });
+});
+
+// Removes a show from a user's show list
+router.get('/remove/:id', (req, res) => {
+    Users.updateOne({_id: req.user.id}, {$pull: {shows: req.params.id}}, (err, user) => {
         res.redirect('/shows');
     });
 });
 
-// TO-DO: Implement adding shows to user lists
-router.get('/add-show', (req, res) => {
-    res.render('shows-add');
+// Adds show to the user's show list
+router.get('/add-show/:id', (req, res) => {
+    Users.updateOne({_id: req.user.id}, {$push: {shows: req.params.id}}, (err, user) => {
+        res.redirect('/shows');
+    });
 });
+
+// Adds a review to a show
+router.post('/add-review/:id', (req, res) => {
+    // Creates Review
+    const review = new Reviews({
+        username: req.user.username,
+        show: req.params.id,
+        comment: req.body.comment,
+        rating: req.body.rating
+    });
+    review.save((err, review) => {
+        // Adds review to show
+        Shows.updateOne({_id: req.params.id}, {$push: {reviews: review._id}}, (err, show) => {
+            // Add review to user
+            Users.updateOne({_id: req.user.id}, {$push: {reviews: review._id}}, (err, user) => {
+                res.redirect('/shows/details/' + req.params.id);
+            });
+        });
+    });
+});
+
+
 
 module.exports = router;

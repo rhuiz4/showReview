@@ -1,0 +1,27 @@
+
+<h1>{{show.name}}</h1>
+<p>
+    Write a new review!
+    <form action="/shows/add-review/{{show.id}}" method="POST">
+        <label for="review">Comment:</label>
+        <input type="text" name="comment" id="comment"><br>
+        <label for="review">Rating:</label>
+        <input type="text" name="rating" id="rating"><br>
+        <input type="submit" value="Post">
+    </form>
+    Reviews:
+    <table>
+        <tr>
+            <th>Review</th>
+            <th>Rating</th>
+     
+        </tr>
+        {{#each reviews}}
+        <tr>
+            <td>{{comment}}</td>
+            <td>{{rating}}</td>
+            <td> - {{username}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</p>

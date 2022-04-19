@@ -4,9 +4,7 @@ Welcome back, {{user.username}}.
 <a href="/shows">Shows</a>
 </p>
 {{else}}
-
-{{!-- TODO: Login System --}}
 <a href="/login">Login</a> or <a href="/register">Register</a>
-
-
 {{/if}}
+
+<errorMsg> {{message}} </errorMsg>

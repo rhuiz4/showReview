@@ -4,20 +4,20 @@ Saved Shows:
 <table>
     <tr>
         <th>Title</th>
-        <th>Release Date</th>
-        <th>Reviews</th>
+        <th>Release-Date</th>
+        {{!-- <th>Reviews</th> --}}
     </tr>
 {{#each shows}}
 <tr>
-    <td>{{this.name}}</td>
+    <td><a href="/shows/details/{{this.id}}">{{this.name}}</a></td>
     <td>{{this.year}}</td>
-    <td><ul>
+    {{!-- <td><ul>
         {{#each this.reviews}}
         <li>{{this}}</li>
         {{/each}}
-    </ul></td>
+    </ul></td> --}}
     <td> 
-        <a href="/shows/delete/{{this.id}}">Delete</a>
+        <a href="/shows/remove/{{this.id}}">Remove</a>
     </td>
 </tr>
 {{/each}}

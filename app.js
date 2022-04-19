@@ -22,9 +22,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // enable sessions
 const session = require('express-session');
 const sessionOptions = {
-    secret: 'secret cookie thang (store this elsewhere!)',
+    secret: process.env.SECRETCOOKIE,
     resave: true,
-      saveUninitialized: true
+    saveUninitialized: true
 };
 app.use(session(sessionOptions));
 

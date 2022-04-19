@@ -19,14 +19,14 @@ const User = new mongoose.Schema({
 const Show = new mongoose.Schema({
   	name: {type: String, required: true},
 	year: {type: Number, required: true},
-	// reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
-	reviews: [{type: String, required: false}]
+	reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
+	// reviews: [{type: String, required: false}]
 });
 
 const Review = new mongoose.Schema({
-	user: {type: String, required: true},
+	username: {type: String, required: true},
 	show: {type: String, required: true},
-	created: {type: Date, required: true},
+	// created: {type: Date, required: true},
 	rating: {type: Number, required: true},
 	comment: {type: String, required: false}
 });
