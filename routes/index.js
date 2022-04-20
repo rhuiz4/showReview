@@ -1,7 +1,7 @@
 const express = require('express'), 
-      router = express.Router();
+      router = express.Router(),
       mongoose = require('mongoose'),
-      User = mongoose.model('User');
+      User = mongoose.model('User'),
       passport = require('passport');
 
 router.get('/', (req, res) => {
@@ -13,15 +13,15 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-router.get('/login', (req, res) =>  {
+router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.get('/register', (req, res) =>  {
+router.get('/register', (req, res) => {
   res.render('register');
 });
 
-router.post('/register', (req, res) =>  {
+router.post('/register', (req, res) => {
   const username = req.body.username;
   User.register(new User({username}), req.body.password, (err, user) => {
     if (err) {
@@ -39,6 +39,7 @@ router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user) => {
     if(user) {
       req.logIn(user, (err) => {
+        console.log(err);
         res.redirect('/');
       });
     } else {

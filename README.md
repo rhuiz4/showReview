@@ -87,25 +87,25 @@ An Example Review:
 
 ## Research Topics
 
+Completed:
 * (3 point) Deploy to Heroku
 
 * (1 point) Use MongoDB Atlas to host database
 
-* (2 points) Use some sort of linter
-    * Probably ESLint
-
-* (2 points) Use a CSS framework or a CSS preprocessor, haven't decided
-    * Framework: either tailwind.css or Bootstrap.
-    * Preprocessor: Sass.
+* (2 points) Use a CSS preprocessor
+    * Sass.
 
 * (3 points) Use grunt
-    * automate linting
-    * automate Sass (if I decide to use it)
+    * automate Sass
 
+In Progress:
+* (2 points) Use some sort of linter
+    * Probably ESLint
+    * Grunt: automate linting
 * (4 points) Planning to use react.js for frontend
     * Probably not as difficult as vue, but will still be a major portion of the project.
 
-Possible 13 points total out of 8 required points 
+9/15 points completed out of 8 required points
 
 ## [Link to Initial Main Project File](app.js) 
 
@@ -115,3 +115,7 @@ Research on deploying on heroku:
 https://devcenter.heroku.com/articles/deploying-nodejs
 
 Research on using MongoDB Atlas with Heroku: https://www.mongodb.com/developer/how-to/use-atlas-on-heroku/
+
+Research on Grunt: https://gruntjs.com/getting-started, and its many plugins: https://gruntjs.com/plugins
+
+Made the login system, user authentication, and session largely based on the starter code.

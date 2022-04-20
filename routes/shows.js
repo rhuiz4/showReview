@@ -12,9 +12,9 @@ const isAuthenticated = (req, res, next) => {
     } else {
         next();
     }
-}
+};
     
-router.use(isAuthenticated)
+router.use(isAuthenticated);
 
 router.get('/', (req, res) => {
     
