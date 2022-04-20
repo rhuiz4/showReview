@@ -16,15 +16,35 @@ module.exports = function(grunt){
                 }
             }
         },
+        sass: {
+            options: {
+                implementation: require('node-sass'),
+                sourceMap: false
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'public/scss',
+                    src: ['*.scss'],
+                    dest: 'public/css',
+                    ext: '.css'
+                }]
+            }
+        },
         watch: {
             css: {
                 files: ["public/css/*.css"],
                 tasks: ["concat", "cssmin"]
+            },
+            scss: {
+                files: ["public/scss/*.scss"],
+                tasks: ["sass"]
             }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.registerTask('default', ['concat', 'cssmin', 'watch']);
+    grunt.loadNpmTasks('grunt-sass');
+    grunt.registerTask('default', ['concat', 'cssmin', 'sass', 'watch']);
 }
