@@ -5,24 +5,27 @@
 <link rel='stylesheet' href='/stylesheets/style.min.css'>
 </head>
 <body>
-<div id="wrapper">
-<div id="hd">
-{{#if user}}
-<div>Welcome, {{user.username}}! (<a href="/logout">Logout</a>)
-</div> 
-{{/if}}
-	<h1>It's Showtime!</h1>
-</div>
-<div id="ft">
-{{!-- {{#if user}} --}}
-	<a href="/">Home</a> | 
-	<a href="/shows/">Your Shows</a> | 
-	<a href="/shows/create">Create a Show</a>
-{{!-- {{/if}} --}}
-</div><br><br>
-<div id="bd">
-{{{body}}}
-</div>
-</div>
+	{{!-- <div id="wrapper"> --}}
+		<div id="hd">
+			{{#if user}}
+			<div>Welcome, {{user.username}}!
+			</div> 
+			{{/if}}
+			<h1>It's Showtime!</h1>
+			<div id="ft">
+				{{#if user}}
+					<div class="nav">
+						<li> <a href="/">Home</a> </li> | 
+						<li> <a href="/shows/">Your Shows</a> </li> | 
+						<li> <a href="/shows/create">Create a Show</a></li>  |
+						<li> <a href="/logout">Logout</a> </li>
+					</div>
+				{{/if}}
+			</div>
+		</div><br><br>
+		<div id="bd">
+			{{{body}}}
+		</div>
+	{{!-- </div> --}}
 </body>
 </html>
