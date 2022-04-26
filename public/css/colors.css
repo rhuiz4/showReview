@@ -1,0 +1,20 @@
+.red {
+  background-color: #ff3535;
+  border-right: 2px solid #ac0606;
+  border-bottom: 2px solid #ac0606; }
+  .red:hover {
+    background-color: #ff7a7a; }
+
+.green {
+  background-color: #00ff26;
+  border-right: 2px solid #009a17;
+  border-bottom: 2px solid #009a17; }
+  .green:hover {
+    background-color: #8cffaf; }
+
+.orange {
+  background-color: #ffb300;
+  border-right: 2px solid #a27100;
+  border-bottom: 2px solid #a27100; }
+  .orange:hover {
+    background-color: #ffe07a; }

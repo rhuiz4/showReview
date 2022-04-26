@@ -33,7 +33,6 @@ errorMsg {
   border-bottom: 1px solid #ccc;
   text-align: center;
   overflow: hidden;
-  list-style-type: none;
   margin: 0; }
   .nav li {
     display: inline;

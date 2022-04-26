@@ -1,13 +1,36 @@
+.red, .remove {
+  background-color: #ff3535;
+  border-right: 2px solid #ac0606;
+  border-bottom: 2px solid #ac0606; }
+  .red:hover, .remove:hover {
+    background-color: #ff7a7a; }
+
+.green, .add {
+  background-color: #00ff26;
+  border-right: 2px solid #009a17;
+  border-bottom: 2px solid #009a17; }
+  .green:hover, .add:hover {
+    background-color: #8cffaf; }
+
+.orange, .edit {
+  background-color: #ffb300;
+  border-right: 2px solid #a27100;
+  border-bottom: 2px solid #a27100; }
+  .orange:hover, .edit:hover {
+    background-color: #ffe07a; }
+
 table {
-  align-items: center;
   margin-left: auto;
   margin-right: auto; }
 
 td {
   padding: 0.5rem; }
   td a {
-    color: #0028b6;
-    text-decoration: none; }
+    color: #0934ce;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    height: 100%; }
 
 tr:nth-child(even) {
   background-color: #626262;
@@ -22,14 +45,16 @@ tr:hover {
 
 th {
   padding: 0.5rem;
-  border-bottom: 1px solid #ccc;
-  text-align: left;
+  border-bottom: 2px solid #00186e;
+  text-align: center;
   background-color: #0028b6;
   color: white; }
 
-.remove {
-  background-color: #ff3535; }
-  .remove a {
-    color: white; }
-  .remove:hover {
-    background-color: #ff7a7a; }
+.remove a {
+  color: white; }
+
+.add a {
+  color: black; }
+
+.edit a {
+  color: white; }

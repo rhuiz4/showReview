@@ -3,7 +3,6 @@
     background-color: rgb(35, 35, 35);
     padding: 0.5em;
     text-align: center;
-    // position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -40,7 +39,6 @@ errorMsg {
     border-bottom: 1px solid #ccc;
     text-align: center;
     overflow: hidden;
-    list-style-type: none;
     margin: 0;
     li {
         display: inline;
@@ -56,3 +54,4 @@ errorMsg {
         }
     }
 }
+

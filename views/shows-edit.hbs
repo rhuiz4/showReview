@@ -8,12 +8,12 @@ Shows:
     </tr>
 {{#each shows}}
 <tr>
-    <td>{{this.name}}</td>
+    <td><a href="/shows/details/{{this.id}}">{{this.name}}</a></td>
     <td>{{this.year}}</td>
-    <td> 
+    <td class="edit"> 
         <a href="/shows/edit-show/{{this.id}}">Edit</a>
     </td>
-    <td> 
+    <td class="remove"> 
         <a href="/shows/delete/{{this.id}}">Delete</a>
     </td>
 </tr>

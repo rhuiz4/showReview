@@ -7,11 +7,16 @@
 {{option}}
 <br><br>
 <table>
-{{#each shows}}
-<tr>
-  <td><a href="/shows/details/{{this.id}}">{{this.name}}</a></td>
-  <td>{{this.year}}</td>
-  <td><a href="/shows/add-show/{{this.id}}">Add</a></td>
-</tr>
-{{/each}}
+  <tr>
+      <th>Title</th>
+      <th>Release-Date</th>
+      {{!-- <th>Reviews</th> --}}
+  </tr>
+  {{#each shows}}
+  <tr>
+    <td><a href="/shows/details/{{this.id}}">{{this.name}}</a></td>
+    <td>{{this.year}}</td>
+    <td class="add"><a href="/shows/add-show/{{this.id}}">Add</a></td>
+  </tr>
+  {{/each}}
 </table>

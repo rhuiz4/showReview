@@ -1,0 +1,26 @@
+.red {
+    background-color: rgb(255, 53, 53);
+    border-right: 2px solid #ac0606;
+    border-bottom: 2px solid #ac0606;
+    &:hover {
+        background-color: #ff7a7a;
+    }   
+}
+
+.green {
+    background-color: rgb(0, 255, 38);
+    border-right: 2px solid rgb(0, 154, 23);
+    border-bottom: 2px solid rgb(0, 154, 23);
+    &:hover {
+        background-color: rgb(140, 255, 175);
+    }   
+}
+
+.orange {
+    background-color: rgb(255, 179, 0);
+    border-right: 2px solid rgb(162, 113, 0);
+    border-bottom: 2px solid rgb(162, 113, 0);
+    &:hover {
+        background-color: rgb(255, 224, 122);
+    }   
+}

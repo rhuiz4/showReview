@@ -1,3 +1,24 @@
+.red, .cancel {
+  background-color: #ff3535;
+  border-right: 2px solid #ac0606;
+  border-bottom: 2px solid #ac0606; }
+  .red:hover, .cancel:hover {
+    background-color: #ff7a7a; }
+
+.green, input[type=submit] {
+  background-color: #00ff26;
+  border-right: 2px solid #009a17;
+  border-bottom: 2px solid #009a17; }
+  .green:hover, input:hover[type=submit] {
+    background-color: #8cffaf; }
+
+.orange {
+  background-color: #ffb300;
+  border-right: 2px solid #a27100;
+  border-bottom: 2px solid #a27100; }
+  .orange:hover {
+    background-color: #ffe07a; }
+
 .form-row {
   padding: 0.5em; }
 
@@ -9,15 +30,18 @@ input[type='checkbox'] {
   margin-right: 1em; }
 
 input[type=submit] {
-  padding: 5px 15px;
-  background: #ccc;
-  border: 0 none;
+  color: black;
+  padding: 8px 15px;
   cursor: pointer;
-  font-size: 1em; }
+  font-size: 1em;
+  border-top: 0;
+  border-left: 0; }
 
 input {
   font-size: 1em; }
 
-input[type=submit]:hover {
-  background-color: #0073AA;
-  color: white; }
+.cancel {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  padding: 5px 17px; }
