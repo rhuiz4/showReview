@@ -34,7 +34,7 @@ router.get('/details/:id', (req, res) => {
     // Find show given id
     Shows.findOne({_id: req.params.id}, (err, show) => {
         // Find all reviews for show
-        Reviews.find({show: show._id}, (err, reviews) => {
+        Reviews.find({_id: {$in: show.reviews}}, (err, reviews) => {
             res.render('shows-details', {show: show, reviews: reviews});
         });
     });
@@ -102,8 +102,11 @@ router.post('/edit-show/:id', (req, res) => {
 
 // Deletes a show from the database
 router.get('/delete/:id', (req, res) => {
-    Shows.deleteOne({_id: req.params.id}, (err, show) => {
-        res.redirect('/shows/edit');
+    // Removes show from all users
+    Users.updateOne({}, {$pull: {shows: req.params.id}}, (err, user) => {
+        Shows.deleteOne({_id: req.params.id}, (err, show) => {
+            res.redirect('/shows/edit');
+        });
     });
 });
 
@@ -123,19 +126,23 @@ router.get('/add-show/:id', (req, res) => {
 
 // Adds a review to a show
 router.post('/add-review/:id', (req, res) => {
-    // Creates Review
-    const review = new Reviews({
-        username: req.user.username,
-        show: req.params.id,
-        comment: sanitize(req.body.comment),
-        rating: sanitize(req.body.rating)
-    });
-    review.save((err, review) => {
-        // Adds review to show
-        Shows.updateOne({_id: req.params.id}, {$push: {reviews: review._id}}, (err, show) => {
-            // Add review to user
-            Users.updateOne({_id: req.user.id}, {$push: {reviews: review._id}}, (err, user) => {
-                res.redirect('/shows/details/' + req.params.id);
+    // Finds show name
+    Shows.findOne({_id: req.params.id}, (err, show) => {
+        // Creates Review
+        const review = new Reviews({
+            username: req.user.username,
+            show: show.name,
+            comment: sanitize(req.body.comment),
+            rating: sanitize(req.body.rating)
+        });
+        review.save((err, review) => {
+            // Adds review to show
+            show.reviews.push(review);
+            show.save((err, show) => {
+                // Add review to user
+                Users.updateOne({_id: req.user.id}, {$push: {reviews: review._id}}, (err, user) => {
+                    res.redirect('/shows/details/' + req.params.id);
+                });
             });
         });
     });
@@ -144,8 +151,23 @@ router.post('/add-review/:id', (req, res) => {
 // Retrieves all reviews from a user
 router.get('/reviews', (req, res) => {
     Users.findOne({_id: req.user.id}, (err, user) => {
+        console.log(user);
         Reviews.find({_id: {$in: user.reviews}}, (err, reviews) => {
             res.render('shows-reviews', {reviews: reviews});
+        });
+    });
+});
+
+// Deletes a review
+router.get('/delete-review/:id', (req, res) => {
+    // Removes review from user
+    Users.updateOne({_id: req.user.id}, {$pull: {reviews: req.params.id}}, (err, user) => {
+        // Removes review from show
+        Shows.updateOne({_id: req.params.id}, {$pull: {reviews: req.params.id}}, (err, show) => {
+            // Removes review from database
+            Reviews.deleteOne({_id: req.params.id}, (err, review) => {
+                res.redirect('/shows/reviews');
+            });
         });
     });
 });

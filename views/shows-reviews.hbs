@@ -1,0 +1,30 @@
+
+Saved Shows:
+<br><br>
+
+{{#if reviews}}
+    <table>
+    <tr>
+        <th>Show</th>
+        <th>Review</th>
+        <th>Rating</th>
+    </tr>
+    {{#each reviews}}
+    <tr>
+        <td>{{this.show}}</td>
+        <td>{{this.comment}}</td>
+        <td>{{this.rating}}</td>
+
+        <td class="remove"> 
+            <a href="/shows/delete-review/{{this.id}}">Delete</a>
+        </td>
+    </tr>
+    {{/each}}
+    </table>
+{{else}}
+    No reviews written.
+    <a href="/shows">Click on a show title to add review!</a>
+{{/if}}
+<br><br>
+<a href="/shows/edit">Edit a Show</a><br>
+<a href="/shows/search">Search for a Show</a>

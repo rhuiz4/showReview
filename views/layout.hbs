@@ -11,13 +11,13 @@
 			<div>Welcome, {{user.username}}!
 			</div> 
 			{{/if}}
-			<h1>It's Showtime!</h1>
+			<h1><a href="/shows/">It's Showtime!</a></h1>
 			<div id="ft">
 				{{#if user}}
 					<div class='nav'>
 						<ul>
-							<li> <a href="/">Home</a> </li>
-							<li> <a href="/shows/">Your Shows</a> </li>
+							<li> <a href="/shows/">My Shows</a> </li>
+							<li> <a href="/shows/reviews">My Reviews</a> </li>
 							<li> <a href="/shows/create">Create a Show</a></li>
 							<li> <a href="/logout">Logout</a> </li>
 						</ul>
