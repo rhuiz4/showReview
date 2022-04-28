@@ -6,7 +6,7 @@
     <div class='form-row'><label>Year:</label> <input type="text" name="year" value="{{show.year}}"></div>
 
     <div>Reviews:
-    {{!-- TODO: Add a way to delete reviews --}}
+    
     <table>
             <tr>
                 <th>Review</th>
@@ -18,6 +18,10 @@
                 <td>{{comment}}</td>
                 <td>{{rating}}</td>
                 <td> - {{username}}</td>
+                {{!-- TODO: Add a way to delete reviews --}}
+                <td class="remove"> 
+                    <a href="/shows/delete-review/{{this.id}}">Delete</a>
+                </td>
             </tr>
             {{/each}}
         </table>

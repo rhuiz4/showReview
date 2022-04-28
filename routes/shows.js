@@ -158,7 +158,7 @@ router.get('/reviews', (req, res) => {
     });
 });
 
-// Deletes a review
+// Deletes a user review
 router.get('/delete-review/:id', (req, res) => {
     // Removes review from user
     Users.updateOne({_id: req.user.id}, {$pull: {reviews: req.params.id}}, (err, user) => {
@@ -172,5 +172,18 @@ router.get('/delete-review/:id', (req, res) => {
     });
 });
 
+// Deletes review from show
+router.get('/delete-show-reviews/:id', (req, res) => {
+    // Removes review from user
+    Users.updateOne({_id: req.user.id}, {$pull: {reviews: req.params.id}}, (err, user) => {
+        // Removes review from show
+        Shows.updateOne({_id: req.params.id}, {$pull: {reviews: req.params.id}}, (err, show) => {
+            // Removes review from database
+            Reviews.deleteOne({_id: req.params.id}, (err, review) => {
+                res.redirect('/shows/reviews');
+            });
+        });
+    });
+});
 
 module.exports = router;
