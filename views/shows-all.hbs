@@ -1,27 +1,29 @@
 
 Saved Shows:
 <br><br>
-<table>
+
+{{#if shows}}
+    <table>
     <tr>
         <th>Title</th>
         <th>Release-Date</th>
         {{!-- <th>Reviews</th> --}}
     </tr>
-{{#each shows}}
-<tr>
-    <td><a href="/shows/details/{{this.id}}">{{this.name}}</a></td>
-    <td>{{this.year}}</td>
-    {{!-- <td><ul>
-        {{#each this.reviews}}
-        <li>{{this}}</li>
-        {{/each}}
-    </ul></td> --}}
-    <td class="remove"> 
-        <a href="/shows/remove/{{this.id}}">Remove</a>
-    </td>
-</tr>
-{{/each}}
-</table>
+    {{#each shows}}
+    <tr>
+        <td><a href="/shows/details/{{this.id}}">{{this.name}}</a></td>
+        <td>{{this.year}}</td>
+
+        <td class="remove"> 
+            <a href="/shows/remove/{{this.id}}">Remove</a>
+        </td>
+    </tr>
+    {{/each}}
+    </table>
+{{else}}
+    No shows saved.
+    <a href="/shows/search">Add a Show Now!</a>
+{{/if}}
 <br><br>
 <a href="/shows/edit">Edit a Show</a><br>
 <a href="/shows/search">Search for a Show</a>
