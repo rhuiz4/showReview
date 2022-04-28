@@ -3,6 +3,7 @@ const express = require('express'),
       mongoose = require('mongoose'),
       User = mongoose.model('User'),
       passport = require('passport');
+      sanitize = require('mongo-sanitize'); // Prevents injection
 
 router.get('/', (req, res) => {
   res.render('home');
@@ -22,11 +23,17 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-  const username = req.body.username;
-  User.register(new User({username}), req.body.password, (err, user) => {
+  const username = sanitize(req.body.username);
+  User.register(new User({username}), sanitize(req.body.password), (err, user) => {
     if (err) {
-      console.log(err);
-      res.render('register',{message:'Your registration information is not valid'});
+      const errStr = err.toString();
+      const colInd = errStr.indexOf(':');
+      if (colInd > -1) {
+        const errMsg = errStr.slice(colInd + 2);
+        res.render('register', {message: errMsg});
+      } else {
+          res.render('register',{message:"Registration failed"});
+      }
     } else {
       passport.authenticate('local')(req, res, function() {
         res.redirect('/');
@@ -44,7 +51,7 @@ router.post('/login', (req, res, next) => {
       });
     } else {
       console.log(err);
-      res.render('login', {message:'Your login or password is incorrect.'});
+      res.render('login', {message:'Your username or password is incorrect.'});
     }
   })(req, res, next);
 });

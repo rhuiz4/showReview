@@ -4,6 +4,7 @@ const express = require('express'),
     Shows = mongoose.model('Show'),
     Reviews = mongoose.model('Review'),
     Users = mongoose.model('User');
+    sanitize = require('mongo-sanitize');
 
 const isAuthenticated = (req, res, next) => {
     if(!req.user) {
@@ -47,8 +48,8 @@ router.get('/create', (req, res) => {
 
 router.post('/create', (req, res) => {
     const show = new Shows({
-        name: req.body.name,
-        year: req.body.year,
+        name: sanitize(req.body.name),
+        year: sanitize(req.body.year),
         reviews: []
     });
     show.save((err, show) => {
@@ -65,7 +66,7 @@ router.get('/search', (req, res) => {
 });
 
 router.post('/search', (req, res) => {
-    Shows.find({name: req.body.name}, (err, shows, count) => {
+    Shows.find({name: sanitize(req.body.name)}, (err, shows, count) => {
         res.render('shows-search', {shows:shows, option:"Results:"});
     });
 });
@@ -92,8 +93,8 @@ router.get('/edit-show/:id', (req, res) => {
 router.post('/edit-show/:id', (req, res) => {
     // Updates show with new information
     Shows.findOneAndUpdate({_id: req.params.id}, {
-        name: req.body.name,
-        year: req.body.year
+        name: sanitize(req.body.name),
+        year: sanitize(req.body.year)
     }, (err, show) => {
         res.redirect('/shows/edit');
     });
@@ -126,8 +127,8 @@ router.post('/add-review/:id', (req, res) => {
     const review = new Reviews({
         username: req.user.username,
         show: req.params.id,
-        comment: req.body.comment,
-        rating: req.body.rating
+        comment: sanitize(req.body.comment),
+        rating: sanitize(req.body.rating)
     });
     review.save((err, review) => {
         // Adds review to show
@@ -140,6 +141,14 @@ router.post('/add-review/:id', (req, res) => {
     });
 });
 
+// Retrieves all reviews from a user
+router.get('/reviews', (req, res) => {
+    Users.findOne({_id: req.user.id}, (err, user) => {
+        Reviews.find({_id: {$in: user.reviews}}, (err, reviews) => {
+            res.render('shows-reviews', {reviews: reviews});
+        });
+    });
+});
 
 
 module.exports = router;
