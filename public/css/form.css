@@ -45,10 +45,7 @@ input[type=submit] {
 select {
   margin-right: 1em;
   background-color: #747474;
-  color: white;
-  border: 2px;
-  border-color: black;
-  size: 10; }
+  color: white; }
 
 input {
   font-size: 1em; }

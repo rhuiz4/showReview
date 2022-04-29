@@ -47,21 +47,30 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
+    let showName = sanitize(req.body.name);
     let showYear = sanitize(req.body.year);
-    if (isNaN(yr)) {
+    if (isNaN(showYear)) {
         res.render('shows-create', {error: 'Year must be a number.'});
+    } else if (showName === '' || showYear === '') {
+        res.render('shows-create', {error: 'Name and Year cannot be empty.'});
     } else {
         showYear = parseInt(showYear);
         if (showYear < 1000 || showYear > 2022) {
             res.render('shows-create', {error: 'Year must be between 1000 and 2022.'});
         } else{
-            const show = new Shows({
-                name: sanitize(req.body.name),
-                year: showYear,
-                reviews: []
-            });
-            show.save((err, show) => {
-                res.redirect('/shows');
+            Shows.findOne({name: showName, year: showYear}, (err, show) => {
+                if (show) {
+                    res.render('shows-create', {error: 'Show already exists.'});
+                } else {
+                    const show = new Shows({
+                        name: showName,
+                        year: showYear,
+                        reviews: []
+                    });
+                    show.save((err, show) => {
+                        res.redirect('/shows');
+                    });
+                }
             });
         }
     }
@@ -101,23 +110,46 @@ router.get('/edit-show/:id', (req, res) => {
 
 // Updates the show with the new information
 router.post('/edit-show/:id', (req, res) => {
-    // Updates show with new information
-    Shows.findOneAndUpdate({_id: req.params.id}, {
-        name: sanitize(req.body.name),
-        year: sanitize(req.body.year)
-    }, (err, show) => {
-        // Removes deleted reviews from show
-        remove_deleted_reviews(show);
-        res.redirect('/shows/edit');
-    });
+    let showName = sanitize(req.body.name);
+    let showYear = sanitize(req.body.year);
+    if (isNaN(showYear)) {
+        res.redirect('/shows/edit-show/' + req.params.id);
+    } else if (showName === '' || showYear === '') {
+        res.redirect('/shows/edit-show/' + req.params.id);
+    } else {
+        showYear = parseInt(showYear);
+        if (showYear < 1000 || showYear > 2022) {
+            res.redirect('/shows/edit-show/' + req.params.id);
+        } else{
+            Shows.findOne({name: showName, year: showYear}, (err, show) => {
+                if (show) {
+                    res.redirect('/shows/edit-show/' + req.params.id);
+                } else {
+                    // Updates show with new information
+                    Shows.findOneAndUpdate({_id: req.params.id}, {
+                        name: showName,
+                        year: showYear
+                    }, (err, show) => {
+                        // Removes deleted reviews from show
+                        remove_deleted_reviews(show);
+                        res.redirect('/shows/edit');
+                    });
+                }
+            });
+        }
+    }
 });
 
 // Deletes a show from the database
 router.get('/delete/:id', (req, res) => {
-    // Removes show from all users
-    Users.updateOne({}, {$pull: {shows: req.params.id}}, (err, user) => {
-        Shows.deleteOne({_id: req.params.id}, (err, show) => {
-            res.redirect('/shows/edit');
+    Shows.findOne({_id: req.params.id}, (err, show) => {
+        console.log(show);
+        // Deletes all reviews for show
+        Reviews.deleteMany({_id: {$in: show.reviews}}, (err, reviews) => {
+            console.log(reviews);
+            Shows.deleteOne({_id: req.params.id}, (err, show) => {
+                res.redirect('/shows/edit');
+            });
         });
     });
 });
@@ -178,8 +210,29 @@ router.get('/delete-review/:id', (req, res) => {
 
 // Deletes review from show
 router.get('/delete-show-review/:id', (req, res) => {
-    Reviews.deleteOne({_id: req.params.id}, (err, review) => {
-        res.redirect('/shows/reviews');
+    Reviews.findOne({_id: req.params.id}, (err, review) => {
+        // Finds show given review
+        Shows.find({name: review.show}, (err, shows) => {
+            let ind = 0;
+            if (shows.length > 1) { // Multiple shows with same name
+                // Find which show the review is in
+                const allReviews = shows.map(show => show.reviews);
+                // Loops through reviews of each show
+                allReviews.forEach(reviews => {
+                    // Loops through each review
+                    for (let i = 0; i < reviews.length; i++) {
+                        // Checks if review is the same as the one being deleted
+                        if (reviews[i]._id.toString() == review._id.toString()) {
+                            ind = i;
+                        }
+                    }
+                });
+            }
+            const currShow = shows[ind];
+            Reviews.deleteOne({_id: req.params.id}, (err, review) => {
+                res.redirect('/shows/edit-show/' + currShow._id);
+            });
+        });
     });
 
 });

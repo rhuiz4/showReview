@@ -19,9 +19,8 @@
                     <td>{{comment}}</td>
                     <td>{{rating}}</td>
                     <td> - {{username}}</td>
-                    {{!-- TODO: Add a way to delete reviews --}}
                     <td class="remove"> 
-                        <a href="/shows/delete-review/{{this.id}}">Delete</a>
+                        <a href="/shows/delete-show-review/{{this.id}}">Delete</a>
                     </td>
                 </tr>
                 {{/each}}
@@ -35,3 +34,5 @@
         <span class='form-row'><input class="add" type="submit" value="Done"></span>
     </div>
 </form>
+
+<errorMsg>{{error}}</errorMsg>

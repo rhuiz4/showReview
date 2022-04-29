@@ -19,20 +19,17 @@ const Show = new mongoose.Schema({
   	name: {type: String, required: true},
 	year: {type: Number, required: true},
 	reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
-	// reviews: [{type: String, required: false}]
 });
 
 const Review = new mongoose.Schema({
 	username: {type: String, required: true},
 	show: {type: String, required: true},
-	// created: {type: Date, required: true},
 	rating: {type: Number, required: true},
 	comment: {type: String, required: false}
 });
 
 
 User.plugin(passportLocalMongoose);
-// List.plugin(URLSlugs('name'));
 
 mongoose.model('User', User);
 mongoose.model('Note', Note);
