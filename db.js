@@ -1,12 +1,5 @@
 const mongoose = require('mongoose');
-// 	URLSlugs = require('mongoose-url-slugs'),
 	  passportLocalMongoose = require('passport-local-mongoose');
-
-const Note = new mongoose.Schema({
-	show: {type: String, required: true},
-	watched: {type: Boolean, default: false, required: true},
-	comment: {type:String, required: false}
-});
 
 const User = new mongoose.Schema({
 	// username: {type: String, required: true},
@@ -32,7 +25,6 @@ const Review = new mongoose.Schema({
 User.plugin(passportLocalMongoose);
 
 mongoose.model('User', User);
-mongoose.model('Note', Note);
 mongoose.model('Show', Show);
 mongoose.model('Review', Review);
 mongoose.connect(process.env.MONGODB_URI);

@@ -23,10 +23,6 @@ An Example User:
   username: "some guy",
   hash: // a password hash,
   shows: // array of references to Shows
-  notes: [
-    { show: "The Batman", watched: True, comment: "This is better than I thought!"},
-    { show: "Hamilton", watched: True, comment: "I don't usually watch musicals, but the songs are so catchy!"}
-  ]
   reviews: // array of references to Reviews
 }
 ```
@@ -36,7 +32,7 @@ An Example Show:
 ```javascript
 {
   name: "The Batman",
-  year: 2022, // Either just the year or the date it came out
+  year: 2022, // The year it came out
   reviews: // array of references to comments
 }
 ```
@@ -47,30 +43,34 @@ An Example Review:
 {
   user: "some guy",
   show: "The Batman",
-  created: // timestamp,
   rating: 8,
   comment: "This is a decent reboot. Will recommend if you are a fan of the franchise."
 }
 ```
 
 
-## [Link to Commented First Draft Schema](db.js) 
+## [Link to Commented Schema](db.js) 
 
 ## Wireframes
 
 /login - page to log in
+
 ![login](documentation/login.png)
 
 /register - page to create account
+
 ![register](documentation/register.png)
 
 /shows - page to show all saved shows and notes
+
 ![shows](documentation/shows.png)
 
 /shows/search - page to look up shows
+
 ![lookup](documentation/lookup.png)
 
 /shows/search - page to dispay show details
+
 ![details](documentation/details.png)
 
 ## Site map
@@ -82,8 +82,8 @@ An Example Review:
 2. as a user, I can log in to the site
 3. as a user, I can search for shows
 4. as a user, I can save a show to my list
-5. as a user, I can add personal notes to a show
-6. as a user, I can write a review for a show
+5. as a user, I can write a review for a show
+6. as a user, I can delete my reviews
 
 ## Research Topics
 
@@ -92,20 +92,15 @@ Completed:
 
 * (1 point) Use MongoDB Atlas to host database
 
+* (1 point) Used Passport for User Authentication
+
 * (2 points) Use a CSS preprocessor
     * Sass.
 
 * (3 points) Use grunt
     * automate Sass
 
-In Progress:
-* (2 points) Use some sort of linter
-    * Probably ESLint
-    * Grunt: automate linting
-* (4 points) Planning to use react.js for frontend
-    * Probably not as difficult as vue, but will still be a major portion of the project.
-
-9/15 points completed out of 8 required points
+10 out of 8 required points
 
 ## [Link to Initial Main Project File](app.js) 
 
@@ -118,4 +113,4 @@ Research on using MongoDB Atlas with Heroku: https://www.mongodb.com/developer/h
 
 Research on Grunt: https://gruntjs.com/getting-started, and its many plugins: https://gruntjs.com/plugins
 
-Made the login system, user authentication, and session largely based on the starter code.
+Made the login system, user authentication, and session using Passport, largely based on the starter code.
