@@ -5,29 +5,33 @@
     <div class='form-row'><label>Name:</label> <input type="text" name="name" value="{{show.name}}"></div>
     <div class='form-row'><label>Year:</label> <input type="text" name="year" value="{{show.year}}"></div>
 
-    <div>Reviews:
-    
-    <table>
-            <tr>
-                <th>Review</th>
-                <th>Rating</th>
+    {{#if reviews}}
+        <div>Reviews:
         
-            </tr>
-            {{#each reviews}}
-            <tr>
-                <td>{{comment}}</td>
-                <td>{{rating}}</td>
-                <td> - {{username}}</td>
-                {{!-- TODO: Add a way to delete reviews --}}
-                <td class="remove"> 
-                    <a href="/shows/delete-review/{{this.id}}">Delete</a>
-                </td>
-            </tr>
-            {{/each}}
-        </table>
-    </div>
+        <table>
+                <tr>
+                    <th>Review</th>
+                    <th>Rating</th>
+                    <th>User</th>
+                </tr>
+                {{#each reviews}}
+                <tr>
+                    <td>{{comment}}</td>
+                    <td>{{rating}}</td>
+                    <td> - {{username}}</td>
+                    {{!-- TODO: Add a way to delete reviews --}}
+                    <td class="remove"> 
+                        <a href="/shows/delete-review/{{this.id}}">Delete</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
+        </div>
+    {{else}}
+        <div>This show has no reviews yet.</div>
+    {{/if}}
     <div>
-        <a class="cancel" href="/shows/edit">Cancel</a>
-        <span class='form-row'><input class="add" type="submit" value="Confirm"></span>
+        {{!-- <a class="cancel" href="/shows/edit">Cancel</a> --}}
+        <span class='form-row'><input class="add" type="submit" value="Done"></span>
     </div>
 </form>

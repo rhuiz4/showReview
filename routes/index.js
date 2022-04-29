@@ -6,12 +6,12 @@ const express = require('express'),
       sanitize = require('mongo-sanitize'); // Prevents injection
 
 router.get('/', (req, res) => {
-  res.render('home');
+  res.redirect('/shows');
 });
 
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.redirect('/login');
 });
 
 router.get('/login', (req, res) => {

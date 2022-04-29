@@ -8,8 +8,7 @@ const express = require('express'),
 
 const isAuthenticated = (req, res, next) => {
     if(!req.user) {
-        res.redirect('/'); 
-        console.log('redirecting');
+        res.redirect('/login'); 
     } else {
         next();
     }
@@ -21,7 +20,8 @@ router.get('/', (req, res) => {
     
     // Finds current user
     Users.findOne({_id: req.user.id}, (err, user) => {
-
+        remove_deleted_reviews(user);
+        remove_deleted_shows(user);
         // Find all shows that the user has in their shows array
         Shows.find({_id: {$in: user.shows}}, (err, shows) => {
             res.render('shows-all', {shows: shows});
@@ -47,14 +47,24 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-    const show = new Shows({
-        name: sanitize(req.body.name),
-        year: sanitize(req.body.year),
-        reviews: []
-    });
-    show.save((err, show) => {
-        res.redirect('/shows');
-    });
+    let showYear = sanitize(req.body.year);
+    if (isNaN(yr)) {
+        res.render('shows-create', {error: 'Year must be a number.'});
+    } else {
+        showYear = parseInt(showYear);
+        if (showYear < 1000 || showYear > 2022) {
+            res.render('shows-create', {error: 'Year must be between 1000 and 2022.'});
+        } else{
+            const show = new Shows({
+                name: sanitize(req.body.name),
+                year: showYear,
+                reviews: []
+            });
+            show.save((err, show) => {
+                res.redirect('/shows');
+            });
+        }
+    }
 });
 
 // Allows users to search for shows
@@ -83,7 +93,7 @@ router.get('/edit', (req, res) => {
 // Shows details for a show and allows users to edit the show
 router.get('/edit-show/:id', (req, res) => {
     Shows.findOne({_id: req.params.id}, (err, show) => {
-        Reviews.find({show: show._id}, (err, reviews) => {
+        Reviews.find({_id: {$in: show.reviews}}, (err, reviews) => {
             res.render('shows-edit-show', {show: show, reviews: reviews});
         });
     });
@@ -96,6 +106,8 @@ router.post('/edit-show/:id', (req, res) => {
         name: sanitize(req.body.name),
         year: sanitize(req.body.year)
     }, (err, show) => {
+        // Removes deleted reviews from show
+        remove_deleted_reviews(show);
         res.redirect('/shows/edit');
     });
 });
@@ -140,7 +152,7 @@ router.post('/add-review/:id', (req, res) => {
             show.reviews.push(review);
             show.save((err, show) => {
                 // Add review to user
-                Users.updateOne({_id: req.user.id}, {$push: {reviews: review._id}}, (err, user) => {
+                Users.updateOne({_id: req.user.id}, {$push: {reviews: review}}, (err, user) => {
                     res.redirect('/shows/details/' + req.params.id);
                 });
             });
@@ -151,7 +163,6 @@ router.post('/add-review/:id', (req, res) => {
 // Retrieves all reviews from a user
 router.get('/reviews', (req, res) => {
     Users.findOne({_id: req.user.id}, (err, user) => {
-        console.log(user);
         Reviews.find({_id: {$in: user.reviews}}, (err, reviews) => {
             res.render('shows-reviews', {reviews: reviews});
         });
@@ -160,30 +171,51 @@ router.get('/reviews', (req, res) => {
 
 // Deletes a user review
 router.get('/delete-review/:id', (req, res) => {
-    // Removes review from user
-    Users.updateOne({_id: req.user.id}, {$pull: {reviews: req.params.id}}, (err, user) => {
-        // Removes review from show
-        Shows.updateOne({_id: req.params.id}, {$pull: {reviews: req.params.id}}, (err, show) => {
-            // Removes review from database
-            Reviews.deleteOne({_id: req.params.id}, (err, review) => {
-                res.redirect('/shows/reviews');
-            });
-        });
+    Reviews.deleteOne({_id: req.params.id}, (err, review) => {
+        res.redirect('/shows/reviews');
     });
 });
 
 // Deletes review from show
-router.get('/delete-show-reviews/:id', (req, res) => {
-    // Removes review from user
-    Users.updateOne({_id: req.user.id}, {$pull: {reviews: req.params.id}}, (err, user) => {
-        // Removes review from show
-        Shows.updateOne({_id: req.params.id}, {$pull: {reviews: req.params.id}}, (err, show) => {
-            // Removes review from database
-            Reviews.deleteOne({_id: req.params.id}, (err, review) => {
-                res.redirect('/shows/reviews');
-            });
-        });
+router.get('/delete-show-review/:id', (req, res) => {
+    Reviews.deleteOne({_id: req.params.id}, (err, review) => {
+        res.redirect('/shows/reviews');
     });
+
 });
+
+// Removes deleted reviews from show or user
+function remove_deleted_reviews(collection) {
+    Reviews.find({}, (err, allReviews) => {
+        const allReviewsIds = allReviews.map(review => review._id);
+        const newReviews = collection.reviews.filter(review => {
+            for (let i = 0; i < allReviewsIds.length; i++) {
+                if (review.toString() == allReviewsIds[i].toString()) {
+                    return true;
+                }
+            }
+            return false;
+        });
+        collection.reviews = newReviews;
+        collection.save((err, show) => {});
+    });
+}
+
+// Removes deleted shows from user
+function remove_deleted_shows(user) {
+    Shows.find({}, (err, allShows) => {
+        const allShowsIds = allShows.map(show => show._id);
+        const newShows = user.shows.filter(show => {
+            for (let i = 0; i < allShowsIds.length; i++) {
+                if (show.toString() == allShowsIds[i].toString()) {
+                    return true;
+                }
+            }
+            return false;
+        });
+        user.shows = newShows;
+        user.save((err, user) => {});
+    });
+}
 
 module.exports = router;

@@ -6,11 +6,11 @@
     background-color: #ff7a7a; }
 
 .green {
-  background-color: #00ff26;
-  border-right: 2px solid #009a17;
-  border-bottom: 2px solid #009a17; }
+  background-color: #00ab1a;
+  border-right: 2px solid #005c0e;
+  border-bottom: 2px solid #005c0e; }
   .green:hover {
-    background-color: #8cffaf; }
+    background-color: #6bcb87; }
 
 .orange {
   background-color: #ffb300;
