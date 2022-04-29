@@ -143,10 +143,8 @@ router.post('/edit-show/:id', (req, res) => {
 // Deletes a show from the database
 router.get('/delete/:id', (req, res) => {
     Shows.findOne({_id: req.params.id}, (err, show) => {
-        console.log(show);
         // Deletes all reviews for show
         Reviews.deleteMany({_id: {$in: show.reviews}}, (err, reviews) => {
-            console.log(reviews);
             Shows.deleteOne({_id: req.params.id}, (err, show) => {
                 res.redirect('/shows/edit');
             });
