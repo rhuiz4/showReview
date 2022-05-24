@@ -85,23 +85,6 @@ An Example Review:
 5. as a user, I can write a review for a show
 6. as a user, I can delete my reviews
 
-## Research Topics
-
-Completed:
-* (3 point) Deploy to Heroku
-
-* (1 point) Use MongoDB Atlas to host database
-
-* (1 point) Used Passport for User Authentication
-
-* (2 points) Use a CSS preprocessor
-    * Sass.
-
-* (3 points) Use grunt
-    * automate Sass
-
-10 out of 8 required points
-
 ## [Link to Initial Main Project File](app.js) 
 
 ## Annotations / References Used
@@ -113,4 +96,4 @@ Research on using MongoDB Atlas with Heroku: https://www.mongodb.com/developer/h
 
 Research on Grunt: https://gruntjs.com/getting-started, and its many plugins: https://gruntjs.com/plugins
 
-Made the login system, user authentication, and session using Passport, largely based on the starter code.
+Made the login system, user authentication, and session using Passport.

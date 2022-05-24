@@ -35,7 +35,18 @@ router.get('/details/:id', (req, res) => {
     Shows.findOne({_id: req.params.id}, (err, show) => {
         // Find all reviews for show
         Reviews.find({_id: {$in: show.reviews}}, (err, reviews) => {
-            res.render('shows-details', {show: show, reviews: reviews});
+            // Find the average rating for the show
+            average = reviews.reduce((acc, review) => {
+                return acc + review.rating;
+            }, 0) / reviews.length;
+
+            // let total = 0;
+            // for (let i = 0; i < reviews.length; i++) {
+            //     total += reviews[i].rating;
+            // }
+            // let average = total / reviews.length;
+            // average = average.toFixed(2);
+            res.render('shows-details', {show: show, reviews: reviews, average: average});
         });
     });
 });
