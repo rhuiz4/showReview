@@ -1,5 +1,7 @@
 # Show U Review
 
+Deployed to: https://showsureview.herokuapp.com/
+
 ## Overview
 
 Everyone seeks entertainment from time to time. You have probably seen and loved many movies, TV series, or performances (i.e. Broadway shows), and want to talk about and share your experiences watching them. Maybe you want a way to keep track of all the shows you've watched and remember what you thought about them. Or perhaps you are deciding on what to watch next, and want to see what other people are saying about a show. 
